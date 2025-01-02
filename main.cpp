@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include "algorithm-mode.h"
+#include "comparison-mode.h"
 
 using namespace std;
 
@@ -16,7 +17,7 @@ int main(int argc, char* argv[]) {
   if (mode == "-a") {
     runAlgorithmMode(argc, argv);
   } else if (mode == "-c") {
-    // runComparisonMode();
+    runComparisonMode(argc, argv);
   } else {
     cout << "Invalid argument 1" << endl;
     exit(1);

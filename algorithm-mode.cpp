@@ -8,37 +8,10 @@
 
 using namespace std;
 
-void sortDataByAlgorithm(string algorithm,
-                         vector<int>& input,
-                         string outputParam) {
-  // pair<long long, int> result;
+void printMeasuredData(pair<long long, int> data, string outputParam) {
   long long time;
   int comparisons;
-  if (algorithm == SELECTION_SORT) {
-    tie(time, comparisons) = selectionSort(input);
-  } else if (algorithm == INSERTION_SORT) {
-    tie(time, comparisons) = insertionSort(input);
-  } else if (algorithm == BINARY_INSERTION_SORT) {
-    tie(time, comparisons) = binaryInsertionSort(input);
-  } else if (algorithm == BUBBLE_SORT) {
-    tie(time, comparisons) = bubbleSort(input);
-  } else if (algorithm == SHAKER_SORT) {
-    tie(time, comparisons) = shakerSort(input);
-  } else if (algorithm == SHELL_SORT) {
-    tie(time, comparisons) = shellSort(input);
-  } else if (algorithm == HEAP_SORT) {
-    tie(time, comparisons) = heapSort(input);
-  } else if (algorithm == MERGE_SORT) {
-    tie(time, comparisons) = mergeSort(input);
-  } else if (algorithm == QUICK_SORT) {
-    tie(time, comparisons) = quickSort(input);
-  } else if (algorithm == COUNTING_SORT) {
-    tie(time, comparisons) = countingSort(input);
-  } else if (algorithm == RADIX_SORT) {
-    tie(time, comparisons) = radixSort(input);
-  } else if (algorithm == FLASH_SORT) {
-    tie(time, comparisons) = flashSort(input);
-  }
+  tie(time, comparisons) = data;
   cout << "---------------------------------" << endl;
   if (outputParam == TIME) {
     cout << "Running time: " << time << " ms" << endl;
@@ -58,7 +31,7 @@ void runAlgorithmMode(int argc, char* argv[]) {
     exit(1);
   }
 
-  // check if the input is given or randomly generated
+  // check if the input is given or automatically generated
   string inputFilename = "";
   int inputSize = 0;
   try {
@@ -71,7 +44,7 @@ void runAlgorithmMode(int argc, char* argv[]) {
   vector<vector<int>> input;
   string inputOrder = "";
   if (inputSize) {
-    // input is randomly generated
+    // input is automatically generated
 
     // check if the input size is valid
     if (!isValidInputSize(inputSize)) {
@@ -104,6 +77,10 @@ void runAlgorithmMode(int argc, char* argv[]) {
   // check if the output parameter is valid
   string outputParam = "";
   if (inputSize && inputOrder != ALL_ORDERS) {
+    if (argc < 6) {
+      cout << "Not enough arguments" << endl;
+      exit(1);
+    }
     outputParam = argv[5];
     if (!isValidOutputParam(outputParam)) {
       cout << "Invalid argument 5" << endl;
@@ -132,12 +109,12 @@ void runAlgorithmMode(int argc, char* argv[]) {
     cout << "Input size: " << input[0].size() << endl;
   }
   if (input.size() == 1) {
-    sortDataByAlgorithm(algorithm, input[0], outputParam);
+    printMeasuredData(sortDataByAlgorithm(algorithm, input[0]), outputParam);
     writeDataToFile(input[0], "output.txt");
   } else {
     for (int i = 0; i < input.size(); i++) {
       cout << "Input order: " << INPUT_ORDER_CAPITAL_NAME[i] << endl;
-      sortDataByAlgorithm(algorithm, input[i], outputParam);
+      printMeasuredData(sortDataByAlgorithm(algorithm, input[i]), outputParam);
       cout << endl;
     }
   }

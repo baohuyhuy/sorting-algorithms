@@ -28,3 +28,5 @@ pair<long long, int> countingSort(vector<int>&);
 pair<long long, int> radixSort(vector<int>&);
 
 pair<long long, int> flashSort(vector<int>&);
+
+pair<long long, int> sortDataByAlgorithm(string, vector<int>&);

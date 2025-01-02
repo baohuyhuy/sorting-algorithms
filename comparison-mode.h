@@ -1,0 +1,1 @@
+void runComparisonMode(int, char*[]);

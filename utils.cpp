@@ -11,12 +11,6 @@ bool isValidAlgorithm(string algorithm) {
 }
 
 bool isValidInputSize(int size) {
-  // for (int i = 0; i < sizeof(INPUT_SIZE) / sizeof(INPUT_SIZE[0]); i++) {
-  //   if (size == INPUT_SIZE[i]) {
-  //     return true;
-  //   }
-  // }
-  // return false;
   return (size > 0);
 }
 

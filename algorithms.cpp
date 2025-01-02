@@ -104,24 +104,26 @@ pair<long long, int> shakerSort(vector<int>& input) {
   int comparisons = 0;
   auto start = chrono::high_resolution_clock::now();
 
-  for (int i = 0; ++comparisons && i < n / 2; i++) {
-    bool swapped = false;
-    for (int j = i; ++comparisons && j < n - i - 1; j++) {
-      if (++comparisons && input[j] > input[j + 1]) {
-        swap(input[j], input[j + 1]);
-        swapped = true;
-      }
-    }
-    for (int j = n - i - 2; ++comparisons && j > i; j--) {
-      if (++comparisons && input[j] < input[j - 1]) {
-        swap(input[j], input[j - 1]);
+  bool swapped = false;
+  do {
+    swapped = false;
+    for (int i = 0; ++comparisons && i < n - 1; i++) {
+      if (++comparisons && input[i] > input[i + 1]) {
+        swap(input[i], input[i + 1]);
         swapped = true;
       }
     }
     if (++comparisons && !swapped) {
       break;
     }
-  }
+    swapped = false;
+    for (int i = n - 1; ++comparisons && i > 0; i--) {
+      if (++comparisons && input[i] < input[i - 1]) {
+        swap(input[i], input[i - 1]);
+        swapped = true;
+      }
+    }
+  } while (++comparisons && swapped);
 
   auto end = chrono::high_resolution_clock::now();
   auto duration = chrono::duration_cast<chrono::milliseconds>(end - start);
@@ -383,7 +385,7 @@ pair<long long, int> flashSort(vector<int>& input) {
     auto duration = chrono::duration_cast<chrono::milliseconds>(end - start);
     return {duration.count(), comparisons};
   }
-  int m = 0.43 * n;
+  int m = (int)((double)0.43 * n);
   vector<int> L(m, 0);
   for (int i = 0; ++comparisons && i < n; i++) {
     int k = getK(input[i], minElement, maxElement, m);
@@ -426,4 +428,32 @@ pair<long long, int> flashSort(vector<int>& input) {
   auto end = chrono::high_resolution_clock::now();
   auto duration = chrono::duration_cast<chrono::milliseconds>(end - start);
   return {duration.count(), comparisons};
+}
+
+pair<long long, int> sortDataByAlgorithm(string algorithm, vector<int>& input) {
+  if (algorithm == SELECTION_SORT) {
+    return selectionSort(input);
+  } else if (algorithm == INSERTION_SORT) {
+    return insertionSort(input);
+  } else if (algorithm == BINARY_INSERTION_SORT) {
+    return binaryInsertionSort(input);
+  } else if (algorithm == BUBBLE_SORT) {
+    return bubbleSort(input);
+  } else if (algorithm == SHAKER_SORT) {
+    return shakerSort(input);
+  } else if (algorithm == SHELL_SORT) {
+    return shellSort(input);
+  } else if (algorithm == HEAP_SORT) {
+    return heapSort(input);
+  } else if (algorithm == MERGE_SORT) {
+    return mergeSort(input);
+  } else if (algorithm == QUICK_SORT) {
+    return quickSort(input);
+  } else if (algorithm == COUNTING_SORT) {
+    return countingSort(input);
+  } else if (algorithm == RADIX_SORT) {
+    return radixSort(input);
+  } else if (algorithm == FLASH_SORT) {
+    return flashSort(input);
+  }
 }
