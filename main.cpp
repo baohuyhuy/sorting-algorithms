@@ -22,6 +22,4 @@ int main(int argc, char* argv[]) {
     cout << "Invalid argument 1" << endl;
     exit(1);
   }
-
-  // return 0;
 }

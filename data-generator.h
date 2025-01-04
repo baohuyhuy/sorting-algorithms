@@ -1,12 +1,6 @@
 #pragma once
 
-#include <time.h>
-#include <cmath>
-#include <fstream>
-#include <iostream>
 #include <vector>
-
-using namespace std;
 
 vector<int> generateRandomData(int);
 

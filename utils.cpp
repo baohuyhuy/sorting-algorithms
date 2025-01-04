@@ -1,4 +1,5 @@
 #include "utils.h"
+#include <fstream>
 #include "data-generator.h"
 
 bool isValidAlgorithm(string algorithm) {

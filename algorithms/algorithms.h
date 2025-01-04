@@ -1,6 +1,11 @@
 #pragma once
 
+#include <chrono>
+#include <cstdlib>
+#include <ctime>
+#include <iostream>
 #include <string>
+#include <utility>
 #include <vector>
 
 using namespace std;

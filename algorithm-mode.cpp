@@ -3,7 +3,7 @@
 #include <iostream>
 #include <tuple>
 #include <vector>
-#include "algorithms.h"
+#include "./algorithms/algorithms.h"
 #include "utils.h"
 
 using namespace std;
