@@ -34,7 +34,6 @@ void runExperiment() {
       writeDataToFile(data,
                       "input" + inputOrder + to_string(inputSize) + ".txt");
       for (int i = 0; i < (int)SORT_METHODS.size(); i++) {
-        if (i == 3 || i == 4) continue;
         vector<int> input = data;
         pair<long long, long long> result = SORT_METHODS[i](input);
         writeResultToFile(result, inputSize, inputOrder, i);
