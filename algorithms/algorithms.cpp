@@ -9,7 +9,8 @@
 
 using namespace std;
 
-pair<long long, int> sortDataByAlgorithm(string algorithm, vector<int>& input) {
+pair<long long, long long> sortDataByAlgorithm(string algorithm,
+                                               vector<int>& input) {
   if (algorithm == SELECTION_SORT) {
     return selectionSort(input);
   } else if (algorithm == INSERTION_SORT) {

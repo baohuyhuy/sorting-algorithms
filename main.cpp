@@ -2,12 +2,13 @@
 #include <string>
 #include "algorithm-mode.h"
 #include "comparison-mode.h"
+#include "experiment.h"
 
 using namespace std;
 
 int main(int argc, char* argv[]) {
   // check if enough arguments are provided
-  if (argc < 5) {
+  if (argc < 2) {
     cout << "Not enough arguments" << endl;
     exit(1);
   }
@@ -18,6 +19,8 @@ int main(int argc, char* argv[]) {
     runAlgorithmMode(argc, argv);
   } else if (mode == "-c") {
     runComparisonMode(argc, argv);
+  } else if (mode == "-e") {
+    runExperiment();
   } else {
     cout << "Invalid argument 1" << endl;
     exit(1);

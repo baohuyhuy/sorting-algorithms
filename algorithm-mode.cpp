@@ -8,9 +8,9 @@
 
 using namespace std;
 
-void printMeasuredData(pair<long long, int> data, string outputParam) {
+void printMeasuredData(pair<long long, long long> data, string outputParam) {
   long long time;
-  int comparisons;
+  long long comparisons;
   tie(time, comparisons) = data;
   cout << "---------------------------------" << endl;
   if (outputParam == TIME) {
@@ -24,8 +24,14 @@ void printMeasuredData(pair<long long, int> data, string outputParam) {
 }
 
 void runAlgorithmMode(int argc, char* argv[]) {
-  string algorithm = argv[2];
+  // check if enough arguments are provided
+  if (argc < 5) {
+    cout << "Not enough arguments" << endl;
+    exit(1);
+  }
+
   // check if the algorithm is valid
+  string algorithm = argv[2];
   if (!isValidAlgorithm(algorithm)) {
     cout << "Invalid argument 2" << endl;
     exit(1);

@@ -1,21 +1,21 @@
 #include "algorithms.h"
 
-pair<long long, int> shakerSort(vector<int>& input) {
-  int n = input.size();
-  int comparisons = 0;
+pair<long long, long long> shakerSort(vector<int>& arr) {
+  int n = arr.size();
+  long long comparisons = 0;
   auto start = chrono::high_resolution_clock::now();
 
   bool swapped = false;
   int left = 0, right = n - 1;
   while (true) {
-    if (left >= right) {
+    if (++comparisons && left >= right) {
       break;
     }
     // forward pass
     swapped = false;
-    for (int i = left; i < right; i++) {
-      if (++comparisons && input[i] > input[i + 1]) {
-        swap(input[i], input[i + 1]);
+    for (int i = left; ++comparisons && i < right; i++) {
+      if (++comparisons && arr[i] > arr[i + 1]) {
+        swap(arr[i], arr[i + 1]);
         swapped = true;
       }
     }
@@ -26,9 +26,9 @@ pair<long long, int> shakerSort(vector<int>& input) {
 
     // backward pass
     swapped = false;
-    for (int i = right; i > left; i--) {
-      if (++comparisons && input[i] < input[i - 1]) {
-        swap(input[i], input[i - 1]);
+    for (int i = right; ++comparisons && i > left; i--) {
+      if (++comparisons && arr[i] < arr[i - 1]) {
+        swap(arr[i], arr[i - 1]);
         swapped = true;
       }
     }

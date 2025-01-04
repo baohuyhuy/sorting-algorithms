@@ -1,71 +1,67 @@
 #include "algorithms.h"
 
-int getK(int element, int minElement, int maxElement, int m) {
-  return (int)((double)(m - 1) * (double)(element - minElement) /
-               (maxElement - minElement));
-}
-
-pair<long long, int> flashSort(vector<int>& input) {
-  int n = input.size();
-  int comparisons = 0;
+pair<long long, long long> flashSort(vector<int>& arr) {
+  int n = arr.size();
+  long long comparisons = 0;
   auto start = chrono::high_resolution_clock::now();
 
   // step 1: classification
-  int minElement = input[0];
+  int minElement = arr[0];
   int maxIdx = 0;
-  int maxElement = input[0];
-  for (int i = 1; i < n; i++) {
-    if (input[i] > input[maxIdx]) {
+  int maxElement = arr[0];
+  for (int i = 1; ++comparisons && i < n; i++) {
+    if (arr[i] > arr[maxIdx]) {
       maxIdx = i;
-      maxElement = input[i];
+      maxElement = arr[i];
     }
-    if (input[i] < minElement) {
-      minElement = input[i];
+    if (arr[i] < minElement) {
+      minElement = arr[i];
     }
   }
-  if (minElement == input[maxIdx]) {
+  if (++comparisons && minElement == arr[maxIdx]) {
     auto end = chrono::high_resolution_clock::now();
     auto duration = chrono::duration_cast<chrono::milliseconds>(end - start);
     return {duration.count(), comparisons};
   }
   int m = (int)((double)0.43 * n);
   vector<int> L(m, 0);
-  for (int i = 0; i < n; i++) {
-    int k = getK(input[i], minElement, maxElement, m);
+  double c1 = (double)(m - 1) / (maxElement - minElement);
+  for (int i = 0; ++comparisons && i < n; i++) {
+    int k = (int)(c1 * (arr[i] - minElement));
     L[k]++;
   }
-  for (int k = 1; k < m; k++) {
+  for (int k = 1; ++comparisons && k < m; k++) {
     L[k] += L[k - 1];
   }
-  swap(input[0], input[maxIdx]);
+  swap(arr[0], arr[maxIdx]);
 
   // step 2: permutation
   int nmove = 0;
   int j = 0;
   int k = m - 1;
-  while (nmove < n - 1) {
-    while (j > L[k] - 1) {
+  while (++comparisons && nmove < n - 1) {
+    while (++comparisons && j > L[k] - 1) {
       j++;
-      k = getK(input[j], minElement, maxElement, m);
+      k = (int)(c1 * (arr[j] - minElement));
     }
-    int flash = input[j];
-    while (j != L[k]) {
-      k = getK(flash, minElement, maxElement, m);
-      swap(input[L[k] - 1], flash);
+    int flash = arr[j];
+    while (++comparisons && j != L[k]) {
+      k = (int)(c1 * (flash - minElement));
+      swap(arr[L[k] - 1], flash);
       L[k]--;
       nmove++;
     }
   }
 
   // step 3: straight insertion
-  for (int i = 1; i < n; i++) {
-    int temp = input[i];
+  for (int i = 1; ++comparisons && i < n; i++) {
+    int temp = arr[i];
     int j = i - 1;
-    while (j >= 0 && ++comparisons && input[j] > temp) {
-      input[j + 1] = input[j];
+    while (++comparisons && j >= 0 && ++comparisons && arr[j] > temp) {
+      arr[j + 1] = arr[j];
       j--;
     }
-    input[j + 1] = temp;
+    arr[j + 1] = temp;
   }
 
   auto end = chrono::high_resolution_clock::now();

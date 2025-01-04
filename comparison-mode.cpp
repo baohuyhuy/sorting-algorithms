@@ -9,9 +9,10 @@
 
 using namespace std;
 
-void printMeasuredData(pair<long long, int> data1, pair<long long, int> data2) {
+void printMeasuredData(pair<long long, long long> data1,
+                       pair<long long, long long> data2) {
   long long time1, time2;
-  int comparisons1, comparisons2;
+  long long comparisons1, comparisons2;
   tie(time1, comparisons1) = data1;
   tie(time2, comparisons2) = data2;
   cout << "---------------------------------" << endl;
@@ -20,6 +21,12 @@ void printMeasuredData(pair<long long, int> data1, pair<long long, int> data2) {
 }
 
 void runComparisonMode(int argc, char* argv[]) {
+  // check if enough arguments are provided
+  if (argc < 5) {
+    cout << "Not enough arguments" << endl;
+    exit(1);
+  }
+
   // check if algorithm 1 is valid
   string algorithm1 = argv[2];
   if (!isValidAlgorithm(algorithm1)) {

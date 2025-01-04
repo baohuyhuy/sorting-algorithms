@@ -1,56 +1,57 @@
 #include "algorithms.h"
 
-void merge(vector<int>& input,
+void merge(vector<int>& arr,
            int left,
            int mid,
            int right,
-           int& comparisons,
+           long long& comparisons,
            vector<int>& temp) {
   int i = left;
   int j = mid + 1;
   int k = left;
 
-  while (i <= mid && j <= right) {
-    if (++comparisons && input[i] <= input[j]) {
-      temp[k++] = input[i++];
+  while (++comparisons && i <= mid && ++comparisons && j <= right) {
+    if (++comparisons && arr[i] <= arr[j]) {
+      temp[k++] = arr[i++];
     } else {
-      temp[k++] = input[j++];
+      temp[k++] = arr[j++];
     }
   }
 
-  while (i <= mid) {
-    temp[k++] = input[i++];
+  while (++comparisons && i <= mid) {
+    temp[k++] = arr[i++];
   }
 
-  while (j <= right) {
-    temp[k++] = input[j++];
+  while (++comparisons && j <= right) {
+    temp[k++] = arr[j++];
   }
 
-  for (int l = left; l <= right; l++) {
-    input[l] = temp[l];
+  for (int l = left; ++comparisons && l <= right; l++) {
+    arr[l] = temp[l];
   }
 }
 
-void mergeSortHelper(vector<int>& input,
+void mergeSortHelper(vector<int>& arr,
                      int left,
                      int right,
-                     int& comparisons,
+                     long long& comparisons,
                      vector<int>& temp) {
-  if (left >= right) {
+  if (++comparisons && left >= right) {
     return;
   }
   int mid = left + (right - left) / 2;
-  mergeSortHelper(input, left, mid, comparisons, temp);
-  mergeSortHelper(input, mid + 1, right, comparisons, temp);
-  merge(input, left, mid, right, comparisons, temp);
+  mergeSortHelper(arr, left, mid, comparisons, temp);
+  mergeSortHelper(arr, mid + 1, right, comparisons, temp);
+  merge(arr, left, mid, right, comparisons, temp);
 }
 
-pair<long long, int> mergeSort(vector<int>& input) {
-  int comparisons = 0;
+pair<long long, long long> mergeSort(vector<int>& arr) {
+  int n = arr.size();
+  vector<int> temp(n);
+  long long comparisons = 0;
   auto start = chrono::high_resolution_clock::now();
 
-  vector<int> temp(input.size());
-  mergeSortHelper(input, 0, input.size() - 1, comparisons, temp);
+  mergeSortHelper(arr, 0, n - 1, comparisons, temp);
 
   auto end = chrono::high_resolution_clock::now();
   auto duration = chrono::duration_cast<chrono::milliseconds>(end - start);

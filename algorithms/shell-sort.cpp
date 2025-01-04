@@ -1,9 +1,12 @@
 #include <algorithm>
 #include "algorithms.h"
 
-pair<long long, int> shellSort(vector<int>& input) {
-  int n = input.size();
-  int comparisons = 0;
+pair<long long, long long> shellSort(vector<int>& arr) {
+  int n = arr.size();
+  // Marcin Ciura's gap sequence
+  vector<int> gaps = {701, 301, 132, 57, 23, 10, 4, 1};
+
+  long long comparisons = 0;
   auto start = chrono::high_resolution_clock::now();
 
   // Knuth's gap sequence
@@ -13,18 +16,17 @@ pair<long long, int> shellSort(vector<int>& input) {
   // }
   // reverse(gaps.begin(), gaps.end());
 
-  // Marcin Ciura's gap sequence
-  vector<int> gaps = {701, 301, 132, 57, 23, 10, 4, 1};
-
-  for (int gap : gaps) {
-    for (int i = gap; i < n; i++) {
-      int temp = input[i];
+  for (int i = 0; ++comparisons && i < (int)gaps.size(); i++) {
+    int gap = gaps[i];
+    for (int i = gap; ++comparisons && i < n; i++) {
+      int temp = arr[i];
       int j;
-      for (j = i; j >= gap && ++comparisons && input[j - gap] > temp;
+      for (j = i;
+           ++comparisons && j >= gap && ++comparisons && arr[j - gap] > temp;
            j -= gap) {
-        input[j] = input[j - gap];
+        arr[j] = arr[j - gap];
       }
-      input[j] = temp;
+      arr[j] = temp;
     }
   }
 
