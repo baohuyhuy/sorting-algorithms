@@ -2,7 +2,7 @@
 #include <string>
 #include "algorithm-mode.h"
 #include "comparison-mode.h"
-#include "experiment.h"
+#include "experiment-mode.h"
 
 using namespace std;
 
@@ -20,7 +20,7 @@ int main(int argc, char* argv[]) {
   } else if (mode == "-c") {
     runComparisonMode(argc, argv);
   } else if (mode == "-e") {
-    runExperiment();
+    runExperimentMode();
   } else {
     cout << "Invalid argument 1" << endl;
     exit(1);

@@ -1,3 +1,4 @@
+#include "experiment-mode.h"
 #include <fstream>
 #include "./algorithms/algorithms.h"
 #include "utils.h"
@@ -26,7 +27,7 @@ void clearDataFiles(string inputOrder) {
   file.close();
 }
 
-void runExperiment() {
+void runExperimentMode() {
   for (const string& inputOrder : INPUT_ORDERS) {
     clearDataFiles(inputOrder);
     for (const int& inputSize : INPUT_SIZES) {

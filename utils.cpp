@@ -12,7 +12,7 @@ bool isValidAlgorithm(string algorithm) {
 }
 
 bool isValidInputSize(int size) {
-  return (size > 0);
+  return (size > 0 && size <= (int)1e6);
 }
 
 bool isValidInputOrder(string inputOrder) {
